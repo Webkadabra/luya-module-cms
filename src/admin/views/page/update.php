@@ -34,6 +34,20 @@ use luya\cms\admin\Module;
                         </span>
                     </label>
                 </div>
+                <!-- standalone routing switch: -->
+                <div ng-show="!isDraft" class="toolbar-item" tooltip tooltip-text="<?= Module::t('view_update_standalone_routing_info')?>" tooltip-position="bottom">
+                    <label class="switch" for="switch-standalone-routing-status">
+                        <span class="switch-label">
+                            <i class="material-icons" ng-show="!navData.is_standalone_route">cloud_queue</i>
+                            <i class="material-icons" ng-show="navData.is_standalone_route">cloud_off</i>
+                        </span>
+                        <span class="switch-switch">
+                            <input class="switch-checkbox" type="checkbox" id="switch-standalone-routing-status" ng-model="navData.is_standalone_route" ng-true-value="1" ng-false-value="0"/>
+                            <span class="switch-control"></span>
+                        </span>
+                    </label>
+                </div>
+                <!--/standalone routing switch -->
                 <div class="toolbar-item toolbar-item-lang" ng-class="{'ml-auto':$first}" ng-repeat="lang in AdminLangService.data" ng-click="AdminLangService.toggleSelection(lang)" ng-if="AdminLangService.data.length > 1">
                     <button class="btn-toolbar flag-btn" ng-class="{'active' : AdminLangService.isInSelection(lang.short_code)}" >
                         <span class="flag flag-{{lang.short_code}}">

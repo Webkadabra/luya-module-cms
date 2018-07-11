@@ -994,6 +994,19 @@
 					}
 				});
 
+                $scope.$watch(function() { return $scope.navData.is_standalone_route }, function(n, o) {
+                    if (n !== o && n !== undefined) {
+                        $http.get('admin/api-cms-nav/toggle-standalone-routing', { params : { navId : $scope.navData.id , setStatus : n }}).then(function(response) {
+                        	// note: reusing `js_state_is_home` && `js_state_is_not_home` since wording basically describes the same thing, and this is just a concept (@webkadabra)
+                            if ($scope.navData.is_standalone_route == 1) {
+                                AdminToastService.info(i18nParam('js_state_is_home', {title: $scope.navData.title}));
+                            } else {
+                                AdminToastService.info(i18nParam('js_state_is_not_home', {title: $scope.navData.title}));
+                            }
+                        });
+                    }
+                });
+
 			    $scope.$watch(function() { return $scope.navData.is_home }, function(n, o) {
 			    	if (n !== o && n !== undefined) {
 						$http.get('admin/api-cms-nav/toggle-home', { params : { navId : $scope.navData.id , homeState : n }}).then(function(response) {

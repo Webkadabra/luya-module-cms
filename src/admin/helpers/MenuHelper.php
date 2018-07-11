@@ -28,7 +28,7 @@ class MenuHelper
     {
         if (self::$items === null) {
             $items = (new Query())
-            ->select(['cms_nav.id', 'nav_item_id' => 'cms_nav_item.id', 'nav_container_id', 'parent_nav_id', 'is_hidden', 'layout_file', 'is_offline', 'is_draft', 'is_home', 'cms_nav_item.title', 'publish_from', 'publish_till'])
+            ->select(['cms_nav.id', 'nav_item_id' => 'cms_nav_item.id', 'nav_container_id', 'parent_nav_id', 'is_hidden', 'is_standalone_route', 'layout_file', 'is_offline', 'is_draft', 'is_home', 'cms_nav_item.title', 'publish_from', 'publish_till'])
             ->from('cms_nav')
             ->leftJoin('cms_nav_item', 'cms_nav.id=cms_nav_item.nav_id')
             ->orderBy(['sort_index' => SORT_ASC])
@@ -217,7 +217,7 @@ class MenuHelper
     {
         if (self::$drafts === null) {
             self::$drafts = (new Query())
-            ->select(['cms_nav.id', 'nav_container_id', 'parent_nav_id', 'is_hidden', 'is_offline', 'is_draft', 'is_home', 'cms_nav_item.title'])
+            ->select(['cms_nav.id', 'nav_container_id', 'parent_nav_id', 'is_hidden', 'is_standalone_route', 'is_offline', 'is_draft', 'is_home', 'cms_nav_item.title'])
             ->from('cms_nav')
             ->leftJoin('cms_nav_item', 'cms_nav.id=cms_nav_item.nav_id')
             ->orderBy('cms_nav.sort_index ASC')

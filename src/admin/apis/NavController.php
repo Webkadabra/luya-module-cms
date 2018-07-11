@@ -206,6 +206,21 @@ class NavController extends \luya\admin\base\RestController
         return false;
     }
 
+    public function actionToggleStandaloneRouting($navId, $setStatus)
+    {
+        $item = Nav::find()->where(['id' => $navId])->one();
+
+        if ($item) {
+            $this->menuFlush();
+            $item->is_standalone_route = (!$setStatus ? 0 : 1);
+            $item->update(false);
+
+            return true;
+        }
+
+        return false;
+    }
+
     public function actionDetail($navId)
     {
         return Nav::findOne($navId);

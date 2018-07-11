@@ -26,6 +26,7 @@ use luya\cms\admin\Module;
  * @property integer $is_deleted
  * @property integer $is_hidden
  * @property integer $is_offline
+ * @property integer $is_standalone_route
  * @property integer $is_home
  * @property integer $is_draft
  * @property string $layout_file
@@ -65,7 +66,7 @@ class Nav extends ActiveRecord
     {
         return [
             [['nav_container_id', 'parent_nav_id'], 'required'],
-            [['is_hidden', 'is_offline', 'sort_index', 'is_deleted', 'is_home', 'is_draft', 'layout_file'], 'safe'],
+            [['is_hidden', 'is_offline', 'is_standalone_route', 'sort_index', 'is_deleted', 'is_home', 'is_draft', 'layout_file'], 'safe'],
             [['layout_file'], 'match', 'pattern' => '/^[a-zA-Z0-9\.\-\_]+$/'],
             [['publish_from', 'publish_till'], 'integer'],
         ];
@@ -110,6 +111,7 @@ class Nav extends ActiveRecord
         $model->attributes = $this->toArray();
         $model->is_hidden = true;
         $model->is_offline = true;
+        $model->is_standalone_route = $this->is_standalone_route;
         $model->is_home = false;
         $model->is_draft = false;
         if ($model->save(false)) {
